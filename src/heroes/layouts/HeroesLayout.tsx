@@ -1,10 +1,18 @@
+import { Suspense } from "react"
 import { Outlet } from "react-router"
 
 
 export const HeroesLayout = () => {
     return (
-        <div className="bg-red-500">
-            <Outlet />
+        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50">
+            <div className="max-w-7xl mx-auto p-6">
+                <Suspense fallback={<div>Loading...</div>}>
+
+                    <Outlet />
+                </Suspense >
+
+
+            </div>
         </div>
     )
 }

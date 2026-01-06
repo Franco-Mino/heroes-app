@@ -4,11 +4,17 @@ import { Heart, Users } from 'lucide-react'
 
 import { HeroStatCard } from './HeroStatsCard'
 import { useHeroSummary } from '../hooks/useHeroSummary'
+import { use } from 'react'
+import { FavoriteHeroContext } from '@/heroes/context/FavoriteHeroContext'
 
 export const HeroStats = () => {
 
+    const { favoriteCount } = use(FavoriteHeroContext);
     {/* Custom Hooks */ }
     const { data: summary } = useHeroSummary();
+    const totalFavorites = (favoriteCount / summary?.totalHeroes!) * 100;
+
+
 
     return (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
@@ -35,8 +41,8 @@ export const HeroStats = () => {
 
             { /* Favorites */}
             <HeroStatCard title="Favorites" icon={<Heart className="h-4 w-4 text-muted-foreground" />}>
-                <div className="text-2xl font-bold text-red-600">3</div>
-                <p className="text-xs text-muted-foreground">18.8% of total</p>
+                <div className="text-2xl font-bold text-red-600">{favoriteCount}</div>
+                <p className="text-xs text-muted-foreground">{totalFavorites.toFixed(2)}% of total</p>
             </HeroStatCard>
 
             { /* Strongest */}

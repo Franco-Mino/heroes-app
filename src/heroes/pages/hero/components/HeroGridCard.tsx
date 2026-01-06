@@ -6,6 +6,8 @@ import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import type { Hero } from "../types/hero.interface";
 import { useNavigate } from "react-router";
+import { use } from "react";
+import { FavoriteHeroContext } from "@/heroes/context/FavoriteHeroContext";
 
 interface Props {
     hero: Hero;
@@ -14,6 +16,7 @@ interface Props {
 
 export const HeroGridCard = ({ hero }: Props) => {
 
+    const { isFavorite, toggleFavorite } = use(FavoriteHeroContext);
 
     const navigate = useNavigate();
     const handleClick = () => {
@@ -21,9 +24,10 @@ export const HeroGridCard = ({ hero }: Props) => {
     }
 
     return (
-        <Card onClick={handleClick} className="group overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-linear-to-br from-white to-gray-50">
+        <Card className="group overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-linear-to-br from-white to-gray-50">
             <div className="relative h-64">
                 <img
+                    onClick={handleClick}
                     src={hero.image}
                     alt={hero.name}
                     className="object-cover transition-all duration-500 group-hover:scale-110 absolute top-[-30px] w-full h-[410px]"
@@ -48,8 +52,17 @@ export const HeroGridCard = ({ hero }: Props) => {
                     )
                 }
 
-                <Button size="sm" variant="ghost" className="absolute bottom-3 right-3 bg-white/90 hover:bg-white">
-                    <Heart className="h-4 w-4 text-gray-600" />
+
+                {/* Favorite button */}
+                <Button
+                    size="sm"
+                    variant="ghost"
+                    className="absolute bottom-3 right-3 bg-white/90 hover:bg-white"
+                    onClick={() => toggleFavorite(hero)}
+                >
+                    <Heart className={`h-4 w-4 
+                        ${isFavorite(hero) ? "fill-red-500 text-red-500" : "text-gray-600"}`}
+                    />
                 </Button>
 
                 <Button

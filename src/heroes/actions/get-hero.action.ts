@@ -1,7 +1,7 @@
 import { heroApi } from "../api/hero.api";
 import { Hero } from "../pages/hero/types/hero.interface";
 
-const BASE_URL = import.meta.env.VITE_API_URL;
+const VITE_API_URL = import.meta.env.VITE_API_URL;
 
 
 export const getHeroAction = async (idSlug: string) => {
@@ -10,6 +10,6 @@ export const getHeroAction = async (idSlug: string) => {
 
     return {
         ...data,
-        image: `${BASE_URL}/images/${data.image}`
+        image: `${VITE_API_URL}/images/${data.image}`
     }
 };

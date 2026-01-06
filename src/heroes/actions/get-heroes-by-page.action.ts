@@ -2,7 +2,7 @@ import { heroApi } from "../api/hero.api";
 import type { HeroesResponse } from "../pages/hero/types/get-hero.response";
 
 
-const BASE_URL = import.meta.env.VITE_API_URL;
+const VITE_API_URL = import.meta.env.VITE_API_URL;
 
 
 
@@ -30,7 +30,7 @@ export const getHeroByPageAction = async (
 
     const heroes = data.heroes.map(hero => ({
         ...hero,
-        image: `${BASE_URL}/images/${hero.image}`
+        image: `${VITE_API_URL}/images/${hero.image}`
     }))
 
     return {
